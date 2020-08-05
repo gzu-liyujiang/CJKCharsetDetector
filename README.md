@@ -4,7 +4,10 @@
 ![Gradle Package](https://github.com/gzu-liyujiang/CJKCharsetDetector/workflows/Gradle%20Package/badge.svg)
 [![jitpack](https://jitpack.io/v/gzu-liyujiang/CJKCharsetDetector.svg)](https://jitpack.io/#gzu-liyujiang/CJKCharsetDetector)
 
-中日韩文本文件字符集自动检测 Auto-detection of charset in Chinese, Japanese and Korean text files
+中日韩文本文件字符集自动检测。Auto-detection of charset in Chinese, Japanese and Korean text files.
+
+基于 Mozilla 的 [jchardet-1.1](http://jchardet.sourceforge.net) 进行易用性封装， 并打包发布到 [![jitpack](https://jitpack.io/v/gzu-liyujiang/CJKCharsetDetector.svg)](https://jitpack.io/#gzu-liyujiang/CJKCharsetDetector)
+
 
 ## License
 
@@ -23,3 +26,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+**NOTE**: This software include `jchardet` is licensed under the [MPL 1.1](http://www.mozilla.org/MPL/)
