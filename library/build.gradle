@@ -3,7 +3,8 @@ apply from: "${rootDir}/gradle/common.gradle"
 apply from: "${rootDir}/gradle/publish.gradle"
 
 dependencies {
-    // implementation third-party library
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation "junit:junit:4.13"
 }
 
 android {

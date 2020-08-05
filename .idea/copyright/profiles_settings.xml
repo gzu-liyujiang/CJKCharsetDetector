@@ -1,7 +1,7 @@
 <component name="CopyrightManager">
-  <settings>
+  <settings default="liyujiang_Default">
     <module2copyright>
-      <element module="Project Source Files" copyright="liyujiang_MulanPSL" />
+      <element module="Project Source Files" copyright="liyujiang_Apache" />
     </module2copyright>
   </settings>
 </component>

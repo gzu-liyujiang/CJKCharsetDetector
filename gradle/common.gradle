@@ -15,10 +15,6 @@ configurations {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation fileTree(dir: 'libs', include: ['*.aar'])
-    implementation "androidx.core:core:$androidxCoreVersion"
-    implementation "androidx.annotation:annotation:$androidxCoreVersion"
-    implementation "androidx.collection:collection:$androidxCoreVersion"
-    annotationProcessor "androidx.annotation:annotation:$androidxCoreVersion"
 }
 
 android {
@@ -64,8 +60,8 @@ android {
     compileOptions {
         encoding 'UTF-8'
         // jdk 1.8 开始支持 lambda 表达式
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     packagingOptions {
