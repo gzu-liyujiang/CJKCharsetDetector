@@ -8,7 +8,17 @@
 
 基于 Mozilla 的 [jchardet-1.1](http://jchardet.sourceforge.net) 进行易用性封装， 并打包发布到 [![jitpack](https://jitpack.io/v/gzu-liyujiang/CJKCharsetDetector.svg)](https://jitpack.io/#gzu-liyujiang/CJKCharsetDetector)
 
+```groovy
+	allprojects {
+		repositories {
+			maven { url 'https://jitpack.io' }
+		}
+	}
 
+	dependencies {
+	    implementation 'com.github.gzu-liyujiang:CJKCharsetDetector:latest.version'
+	}
+```
 ## License
 
 ```text
