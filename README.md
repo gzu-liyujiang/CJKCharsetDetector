@@ -20,7 +20,8 @@
 	}
 ```
 ```groovy
-    Charset charset = CJKCharsetDetector.detect(new FileInputStream(file));
+    //Charset charset = CJKCharsetDetector.detect(new FileInputStream(file));
+    Charset charset = CJKCharsetDetector.detect(new ByteArrayInputStream(bytes));
     String str = new String(bytes, charset.name());
     if (CJKCharsetDetector.inWrongEncoding(str)) {
         System.err.println("File was loaded using wrong encoding: " + charset.name());
