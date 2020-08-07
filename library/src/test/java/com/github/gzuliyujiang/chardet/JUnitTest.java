@@ -20,6 +20,7 @@ package com.github.gzuliyujiang.chardet;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,18 +40,23 @@ public class JUnitTest {
     }
 
     @Test
+    public final void detectASCII() {
+        Assert.assertTrue(guessCharset("ASCII"));
+    }
+
+    @Test
     public final void detectUTF8() {
         Assert.assertTrue(guessCharset("UTF-8"));
     }
 
     @Test
-    public final void detectGBK() {
-        Assert.assertTrue(guessCharset("GBK"));
+    public final void detectUTF8WithBOM() {
+        Assert.assertTrue(guessCharset("UTF-8-BOM", "UTF-8"));
     }
 
     @Test
-    public final void detectBig5() {
-        Assert.assertTrue(guessCharset("Big5"));
+    public final void detectGBK() {
+        Assert.assertTrue(guessCharset("GBK"));
     }
 
     @Test
@@ -61,6 +67,11 @@ public class JUnitTest {
     @Test
     public final void detectGB18030() {
         Assert.assertTrue(guessCharset("GB18030"));
+    }
+
+    @Test
+    public final void detectBig5() {
+        Assert.assertTrue(guessCharset("Big5"));
     }
 
     @Test
@@ -75,22 +86,28 @@ public class JUnitTest {
 
     @Test
     public final void detectKOI8R() {
+        // NOTE: KOI8-R 编码 被识别成 Shift_JIS 编码，不知道是不是样本不靠谱？
         Assert.assertTrue(guessCharset("KOI8-R"));
     }
 
     private static boolean guessCharset(String charsetName) {
+        return guessCharset(charsetName, charsetName);
+    }
+
+    private static boolean guessCharset(String fileName, String charsetName) {
         System.out.println("---------------------------------");
         try {
             System.out.println("Origin charset: " + charsetName);
-            File file = new File(System.getProperty("user.dir"), charsetName + ".txt");
+            File file = new File(System.getProperty("user.dir"), fileName + ".txt");
             System.out.println("Target file: " + file);
-            Charset charset = CJKCharsetDetector.detect(new FileInputStream(file));
-            assert charset != null;
-            System.out.println("Detect charset: " + charset);
             byte[] bytes = readBytes(new FileInputStream(file));
             System.out.println("Bytes length: " + bytes.length);
+            //Charset charset = CJKCharsetDetector.detect(new FileInputStream(file));
+            Charset charset = CJKCharsetDetector.detect(new ByteArrayInputStream(bytes));
+            assert charset != null;
+            System.out.println("Detect charset: " + charset);
             String str = new String(bytes, charset.name());
-            System.out.println("Display text: " + str);
+            System.out.println("Display text: \n**********\n" + str.trim() + "\n**********");
             if (CJKCharsetDetector.inWrongEncoding(str)) {
                 System.err.println("File was loaded in the wrong encoding: " + charset.name());
                 return false;

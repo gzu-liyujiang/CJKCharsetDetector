@@ -119,7 +119,7 @@ public final class CJKCharsetDetector implements nsICharsetDetectionObserver {
         if (isAscii) {
             alreadyFound = true;
             if (DEBUG) {
-                System.out.println("Is ASCII");
+                System.out.println("ASCII first: true");
             }
             probableCharset = "ASCII";
             return;
@@ -129,18 +129,23 @@ public final class CJKCharsetDetector implements nsICharsetDetectionObserver {
             if (DEBUG) {
                 System.out.println("Probable charsets: " + Arrays.toString(probableCharsets));
             }
+            // 先取第一个可能的字符集，然后再赛选其他可能的字符集
             probableCharset = probableCharsets[0];
             for (String itCharset : probableCharsets) {
-                if (!itCharset.startsWith("UTF") && !itCharset.startsWith("GB18030")) {
-                    // 可能有多个字符集的情况，范围比较大的UTF系列及GB18030优先级靠后
-                    // [UTF-16LE, Big5, GB18030, UTF-16BE]
-                    // [GB18030, Shift_JIS, UTF-16BE]
+                // “UTF-16LE、UTF-16BE、GB18030”这几种范围比较大，目前并不常用，优先级靠后
+                // [UTF-16BE, Big5, GB18030]
+                // [UTF-16LE, Big5, GB18030, UTF-16BE]
+                // [GB18030, Shift_JIS, UTF-16BE]
+                if (!(itCharset.startsWith("UTF-16") || itCharset.startsWith("GB18030"))) {
                     probableCharset = itCharset;
                     break;
                 }
             }
         }
         if ("nomatch".equals(probableCharset)) {
+            if (DEBUG) {
+                System.out.println("Charset no match");
+            }
             throw new Exception("no match");
         }
         alreadyFound = false;

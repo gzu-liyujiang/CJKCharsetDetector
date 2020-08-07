@@ -19,6 +19,13 @@
 	    implementation 'com.github.gzu-liyujiang:CJKCharsetDetector:latest.version'
 	}
 ```
+```groovy
+    Charset charset = CJKCharsetDetector.detect(new FileInputStream(file));
+    String str = new String(bytes, charset.name());
+    if (CJKCharsetDetector.inWrongEncoding(str)) {
+        System.err.println("File was loaded using wrong encoding: " + charset.name());
+    }
+```
 ## License
 
 ```text
