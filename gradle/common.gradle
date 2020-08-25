@@ -2,12 +2,7 @@ configurations {
     all {
         //此处可用于解决依赖冲突问题，参阅https://developer.android.google.cn/studio/build/dependencies#duplicate_classes
         resolutionStrategy {
-            force "androidx.core:core:${androidxCoreVersion}"
-            force "androidx.lifecycle:lifecycle-runtime:${androidxLifecycleVersion}"
-            force "androidx.annotation:annotation:$androidxCoreVersion"
-            force "androidx.collection:collection:$androidxCoreVersion"
-            force "androidx.fragment:fragment:$androidxCoreVersion"
-            force "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+            force "androidx.annotation:annotation:$annotationVersion"
         }
     }
 }

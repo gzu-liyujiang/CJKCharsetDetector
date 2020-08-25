@@ -4,6 +4,7 @@ apply from: "${rootDir}/gradle/publish.gradle"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.annotation:annotation:${annotationVersion}"
     testImplementation "junit:junit:4.13"
 }
 

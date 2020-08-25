@@ -17,10 +17,14 @@
 
 package com.github.gzuliyujiang.chardet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.mozilla.intl.chardet.nsDetector;
 import org.mozilla.intl.chardet.nsICharsetDetectionObserver;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -57,23 +61,33 @@ public final class CJKCharsetDetector implements nsICharsetDetectionObserver {
         return str.contains("\ufffd");
     }
 
-    public static Charset detect(InputStream inputStream) {
+    @Nullable
+    public static Charset detect(@NonNull byte[] data) {
+        return detect(new ByteArrayInputStream(data));
+    }
+
+    @Nullable
+    public static Charset detect(@NonNull InputStream inputStream) {
         return detectCharsetForCJK(inputStream, nsDetector.ALL);
     }
 
-    public static Charset detectCharsetOnlyChinese(InputStream inputStream) {
+    @Nullable
+    public static Charset detectCharsetOnlyChinese(@NonNull InputStream inputStream) {
         return detectCharsetForCJK(inputStream, nsDetector.CHINESE);
     }
 
-    public static Charset detectCharsetOnlyJapanese(InputStream inputStream) {
+    @Nullable
+    public static Charset detectCharsetOnlyJapanese(@NonNull InputStream inputStream) {
         return detectCharsetForCJK(inputStream, nsDetector.JAPANESE);
     }
 
-    public static Charset detectCharsetOnlyKorean(InputStream inputStream) {
+    @Nullable
+    public static Charset detectCharsetOnlyKorean(@NonNull InputStream inputStream) {
         return detectCharsetForCJK(inputStream, nsDetector.KOREAN);
     }
 
-    public static Charset detectCharsetForCJK(InputStream inputStream, int language) {
+    @Nullable
+    public static Charset detectCharsetForCJK(@NonNull InputStream inputStream, int language) {
         try {
             CJKCharsetDetector instance = getInstance();
             instance.guessCharset(inputStream, language);
@@ -99,7 +113,7 @@ public final class CJKCharsetDetector implements nsICharsetDetectionObserver {
         probableCharset = charset;
     }
 
-    private void guessCharset(InputStream inputStream, int language) throws Exception {
+    private void guessCharset(@NonNull InputStream inputStream, int language) throws Exception {
         nsDetector detector = new nsDetector(language);
         detector.Init(this);
         BufferedInputStream bis = new BufferedInputStream(inputStream);
